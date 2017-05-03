@@ -1,0 +1,36 @@
+diff --git a/home/LoBo2_Razno/ESP32/Lua-RTOS-ESP32-ORIG/components/lua_rtos/Lua/modules/lora.c b/home/LoBo2_Razno/ESP32/Lua-RTOS-ESP32/components/lua_rtos/Lua/modules/lora.c
+index 046fce7..8b12de3 100644
+--- a/home/LoBo2_Razno/ESP32/Lua-RTOS-ESP32-ORIG/components/lua_rtos/Lua/modules/lora.c
++++ b/home/LoBo2_Razno/ESP32/Lua-RTOS-ESP32/components/lua_rtos/Lua/modules/lora.c
+@@ -116,6 +116,11 @@ static int llora_setup(lua_State* L) {
+ 	driver_error_t *error;
+     
+     int band = luaL_checkinteger(L, 1);
++
++    // Sanity checks
++    if ((band != 868) && (band != 433)) {
++        return luaL_error(L, "%d:invalid band", LORA_ERR_INVALID_ARGUMENT);
++    }
+     
+     // Setup in base of frequency
+     error = lora_setup(band);
+diff --git a/home/LoBo2_Razno/ESP32/Lua-RTOS-ESP32-ORIG/components/lua_rtos/Lua/modules/net.c b/home/LoBo2_Razno/ESP32/Lua-RTOS-ESP32/components/lua_rtos/Lua/modules/net.c
+index 2f1de35..b435480 100644
+--- a/home/LoBo2_Razno/ESP32/Lua-RTOS-ESP32-ORIG/components/lua_rtos/Lua/modules/net.c
++++ b/home/LoBo2_Razno/ESP32/Lua-RTOS-ESP32/components/lua_rtos/Lua/modules/net.c
+@@ -40,6 +40,7 @@
+ #include "net_spi_eth.inc"
+ #include "net_service_sntp.inc"
+ #include "net_service_http.inc"
++#include "net_service_curl.inc"
+ 
+ #include <stdint.h>
+ #include <stdio.h>
+@@ -234,6 +235,7 @@ static const LUA_REG_TYPE service_map[] = {
+ #if LUA_USE_HTTP
+ 	{ LSTRKEY( "http" ), LROVAL ( http_map ) },
+ #endif
++	{ LSTRKEY( "curl" ), LROVAL ( curl_map ) },
+ };
+ 
+ static const LUA_REG_TYPE net_map[] = {
