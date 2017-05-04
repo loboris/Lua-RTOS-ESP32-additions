@@ -375,7 +375,7 @@ static int _preparePost(lua_State* L, int pos)
  * Example:
  * --------
  *
- * 	res, hdr, bdy = net.service.curl.post("http://loboris.eu/ESP32/test.php, {temp=24, user="esp32"})
+ * 	res, hdr, bdy = net.service.curl.post("http://loboris.eu/ESP32/test.php", {temp=24, user="esp32"})
  *
  * 	postreq = {
  * 				temp=24,
@@ -383,7 +383,7 @@ static int _preparePost(lua_State* L, int pos)
  * 				_FILE_file2="data.txt",
  * 				_JSON_jsondata="{\"name\":\"John\", \"age\":31}"
  * 	          }
- * 	res, hdr, bdy = net.service.curl.post("http://loboris.eu/ESP32/test.php, postreq)
+ * 	res, hdr, bdy = net.service.curl.post("http://loboris.eu/ESP32/test.php", postreq)
  *
  * Note:
  * 	- More than one file can be uploaded
@@ -654,16 +654,16 @@ static int lnet_curlget(lua_State* L) {
  *  NOTE: 'ftp://speedtest.tele2.net' is real ftp server which can be used for testing
  *
  *  -- list files in root directory
- * 	res, hdr, resp = net.service.curl.ftp(0,ftp://speedtest.tele2.net","anonymous","lua.esp32@gmail.com")
+ * 	res, hdr, resp = net.service.curl.ftp(0,"ftp://speedtest.tele2.net","anonymous","lua.esp32@gmail.com")
  *
  * 	-- send file to upload directory (file name MUST be given in URL)
- * 	res, hdr, resp = net.service.curl.ftp(1,ftp://speedtest.tele2.net/upload/image77.jpg","anonymous","lua.esp32@gmail.com","images/myimage.jpg")
+ * 	res, hdr, resp = net.service.curl.ftp(1,"ftp://speedtest.tele2.net/upload/image77.jpg","anonymous","lua.esp32@gmail.com","images/myimage.jpg")
  *
  * 	-- list files in upload directory to check if file is uploaded (trailing slash MUST be given)
- * 	res, hdr, resp = net.service.curl.ftp(0,ftp://speedtest.tele2.net/upload","anonymous","lua.esp32@gmail.com")
+ * 	res, hdr, resp = net.service.curl.ftp(0,"ftp://speedtest.tele2.net/upload","anonymous","lua.esp32@gmail.com")
  *
  *  -- get file back under new name
- * 	res, hdr, resp = net.service.curl.ftp(0,ftp://speedtest.tele2.net/upload/image77.jpg","anonymous","lua.esp32@gmail.com","images/newimage.jpg")
+ * 	res, hdr, resp = net.service.curl.ftp(0,"ftp://speedtest.tele2.net/upload/image77.jpg","anonymous","lua.esp32@gmail.com","images/newimage.jpg")
  */
 
 //=====================================
@@ -855,7 +855,7 @@ static int lnet_curlftp(lua_State* L) {
  *
  *  Example:
  *  	opt = {user="luaesp32@gmail.com", pass="luaESP32password", to="myfriend@gmail.com"}
- *  	ret,stat = net.services.curl.sendmail(opt)
+ *  	ret,stat = net.service.curl.sendmail(opt)
  *
  *  	opt = {
  *  			user = "luaesp32@gmail.com",
@@ -866,12 +866,12 @@ static int lnet_curlftp(lua_State* L) {
  *  			secure = true,
  *  			attach = {"picture.jpg", "sd/images/image7.bmp"}
  *  		  }
- *  	ret,stat = net.services.curl.sendmail(opt)
+ *  	ret,stat = net.service.curl.sendmail(opt)
  *
  *		-- reuse 'opt' for another mail
  *  	opt.cc = "forgotten@gmail.com"
  *  	opt.subj = "2nd test"
- *  	ret,stat = net.services.curl.sendmail(opt)
+ *  	ret,stat = net.service.curl.sendmail(opt)
  */
 //======================================
 static int lnet_sendmail(lua_State* L) {
