@@ -1154,7 +1154,7 @@ static int lnet_curl_cleanup(lua_State* L) {
 static int lnet_curlinfo(lua_State* L) {
 	uint8_t info = 0;
 
-	if (lua_gettop(L) > 1) {
+	if (lua_gettop(L) > 0) {
 		if (lua_isboolean(L, 1)) {
 			info = lua_toboolean(L, 1);
 		}
